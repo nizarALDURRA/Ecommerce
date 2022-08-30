@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\api\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -40,8 +40,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'user has been created successfully',
-                'user' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
+                'user' => $user->createToken("API TOKEN")->plainTextToken,
+                'statusCode' => 200
+            ]);
 
         } catch (Exception $e) {
             return response()->json([
@@ -77,8 +78,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'user logged in successfully',
-                'user' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
+                'user' => $user->createToken("API TOKEN")->plainTextToken,
+                'statusCode' => 200
+            ]);
 
         } catch (Exception $exception) {
             return response()->json([
