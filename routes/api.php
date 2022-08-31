@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\admin\AdminController;
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//---------------------------- Auth --------------------------------
 Route::post('auth/register',[AuthController::class,'createUser']);
 Route::post('auth/login',[AuthController::class,'loginUser']);
-Route::get('Category/all',[CategoryController::class,'all']);
-Route::post('Category/create',[CategoryController::class,'create']);
-Route::delete('Category/delete/{id}',[CategoryController::class,'delete']);
+
+//--------------------------- categories ---------------------------
+Route::post('categories/{category}/update',[CategoryController::class,'update'])->name('category.update');
+Route::resource('categories', CategoryController::class)->except(['update', 'create', 'edit']);
+
+//--------------------------- product ------------------------------
+Route::post('products/{product}/update',[ProductController::class,'update'])->name('products.update');
+Route::resource('products', ProductController::class)->except(['update', 'create', 'edit']);
+
+//---------------------------------------------------------
